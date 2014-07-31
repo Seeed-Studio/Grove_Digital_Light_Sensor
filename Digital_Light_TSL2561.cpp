@@ -1,23 +1,33 @@
 /*
-  TSL2561 library V1.0
-  2010 Copyright (c) Seeed Technology Inc.  All right reserved.
- 
-  Original Author: zhangkun
-  
-  This library is free software; you can redistribute it and/or
-  modify it under the terms of the GNU Lesser General Public
-  License as published by the Free Software Foundation; either
-  version 2.1 of the License, or (at your option) any later version.
-
-  This library is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-  Lesser General Public License for more details.
-
-  You should have received a copy of the GNU Lesser General Public
-  License along with this library; if not, write to the Free Software
-  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-*/
+ * Digital_Light_TSL2561.cpp
+ * A library for TSL2561
+ *
+ * Copyright (c) 2012 seeed technology inc.
+ * Website    : www.seeed.cc
+ * Author     : zhangkun
+ * Create Time:
+ * Change Log :
+ *
+ * The MIT License (MIT)
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
 #include <Digital_Light_TSL2561.h>
 #include <Arduino.h>
 #include <Wire.h>
@@ -31,12 +41,12 @@ int TSL2561_CalculateLux::readRegister(int deviceAddress, int address)
     while(!Wire.available());
     value = Wire.read();
     delay(100);
-    return value; 
+    return value;
 }
 
-void TSL2561_CalculateLux::writeRegister(int deviceAddress, int address, int val) 
+void TSL2561_CalculateLux::writeRegister(int deviceAddress, int address, int val)
 {
-    Wire.beginTransmission(deviceAddress);  // start transmission to device 
+    Wire.beginTransmission(deviceAddress);  // start transmission to device
     Wire.write(address);                    // send register address
     Wire.write(val);                        // send value to write
     Wire.endTransmission();                 // end transmission
@@ -76,13 +86,13 @@ unsigned long TSL2561_CalculateLux::calculateLux(unsigned int iGain, unsigned in
     if (!iGain)  chScale = chScale << 4; // scale 1X to 16X
     // scale the channel values
     channel0 = (channel0 * chScale) >> CH_SCALE;
-    channel1 = (channel1 * chScale) >> CH_SCALE; 
+    channel1 = (channel1 * chScale) >> CH_SCALE;
 
     ratio1 = 0;
     if (channel0!= 0) ratio1 = (channel1 << (RATIO_SCALE+1))/channel0;
     // round the ratio value
      unsigned long ratio = (ratio1 + 1) >> 1;
-     
+
     switch (iType)
     {
         case 0: // T package
@@ -118,7 +128,7 @@ unsigned long TSL2561_CalculateLux::calculateLux(unsigned int iGain, unsigned in
             {b=B6C; m=M6C;}
             else if (ratio <= K7C)
             {b=B7C; m=M7C;}
-    } 
+    }
     temp=((channel0*b)-(channel1*m));
     if(temp<0) temp=0;
     temp+=(1<<LUX_SCALE-1);
