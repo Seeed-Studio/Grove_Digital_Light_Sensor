@@ -28,18 +28,19 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-#ifndef __DIGITAL_LIGHT_TSL2561_H__
-#define __DIGITAL_LIGHT_TSL2561_H__
 
-#define  TSL2561_CONTROL  0x80
-#define  TSL2561_TIMING   0x81
-#define  TSL2561_INTERRUPT 0x86
-#define  TSL2561_CHANNAL0L 0x8C
-#define  TSL2561_CHANNAL0H 0x8D
-#define  TSL2561_CHANNAL1L 0x8E
-#define  TSL2561_CHANNAL1H 0x8F
+#ifndef Digital_Light_TSL2561_H
+#define Digital_Light_TSL2561_H
 
-#define TSL2561_ADDRESS  0x29       //device address
+#define  TSL2561_Control  0x80
+#define  TSL2561_Timing   0x81
+#define  TSL2561_Interrupt 0x86
+#define  TSL2561_Channal0L 0x8C
+#define  TSL2561_Channal0H 0x8D
+#define  TSL2561_Channal1L 0x8E
+#define  TSL2561_Channal1H 0x8F
+
+#define TSL2561_Address  0x29       //device address
 
 #define LUX_SCALE 14           // scale by 2^14
 #define RATIO_SCALE 9          // scale ratio by 2^9
@@ -100,23 +101,26 @@
 #define M8C 0x0000   // 0.000 * 2^LUX_SCALE
 class TSL2561_CalculateLux
 {
-public:
-    unsigned long calculateLux(unsigned int iGain, unsigned int tInt,int iType);
-    void getLux(void);
-    void init(void);
-    int readRegister(int deviceAddress, int address);
-    void writeRegister(int deviceAddress, int address, int val);
-private:
-    int CH0_LOW,CH0_HIGH,CH1_LOW,CH1_HIGH;
-    unsigned long chScale;
-    unsigned long channel1;
-    unsigned long channel0;
-    unsigned long  ratio1;
-    unsigned int b;
-    unsigned int m;
-    unsigned long temp;
-    unsigned long lux;
+ public:
+  unsigned long readVisibleLux();
+  unsigned long calculateLux(unsigned int iGain, unsigned int tInt,int iType);
+  void getLux(void);
+  void init(void);
+  int readRegister(int deviceAddress, int address);
+  void writeRegister(int deviceAddress, int address, int val);
+ private:
+  int CH0_LOW,CH0_HIGH,CH1_LOW,CH1_HIGH;
+  unsigned long chScale;
+  unsigned long channel1;
+  unsigned long channel0;
+  unsigned long  ratio1;
+  unsigned int b;
+  unsigned int m;
+  unsigned long temp;
+  unsigned long lux;
+
  };
 extern TSL2561_CalculateLux  TSL2561;
 #endif
+
 

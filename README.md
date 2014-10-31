@@ -15,9 +15,9 @@ This is an Arduino Library of Grove - Digital Light Sensor.
 
     TSL2561.init(); 
 
-### Get Data
+### Get the Lux reading of visible light
 
-    unsigned long calculateLux(unsigned int iGain, unsigned int tInt,int iType);
+    unsigned long readVisibleLux();
 
 
 <br>

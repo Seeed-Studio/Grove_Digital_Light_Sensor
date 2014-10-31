@@ -28,22 +28,21 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+
 #include <Wire.h>
 #include <Digital_Light_TSL2561.h>
 void setup()
 {
-    Wire.begin();
-    Serial.begin(9600);
-    TSL2561.init();
+  Wire.begin();
+  Serial.begin(9600);
+  TSL2561.init();
 }
 
 void loop()
 {
-    unsigned long  Lux;
-
-    TSL2561.getLux();
-
-    Serial.print("The Light value is: ");
-    Serial.println(TSL2561.calculateLux(0,0,1));
-    delay(1000);
+  Serial.print("The Light value is: ");
+  Serial.println(TSL2561.readVisibleLux());
+  delay(1000);
 }
+
+
