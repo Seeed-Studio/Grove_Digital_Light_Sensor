@@ -6,7 +6,7 @@
  * Website    : www.seeed.cc
  * Author     : zhangkun
  * Create Time:
- * Change Log :
+ * Change Log :  Jack Shao, Nov 2014, bug fix and update for user experience
  *
  * The MIT License (MIT)
  *
@@ -28,14 +28,13 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 #include <Digital_Light_TSL2561.h>
 #include <Arduino.h>
 #include <Wire.h>
-int TSL2561_CalculateLux::readRegister(int deviceAddress, int address)
+uint8_t TSL2561_CalculateLux::readRegister(int deviceAddress, int address)
 {
 
-    int value;
+    uint8_t value;
      Wire.beginTransmission(deviceAddress);
      Wire.write(address);                // register to read
      Wire.endTransmission();
@@ -46,7 +45,7 @@ int TSL2561_CalculateLux::readRegister(int deviceAddress, int address)
      return value;
 }
 
-void TSL2561_CalculateLux::writeRegister(int deviceAddress, int address, int val)
+void TSL2561_CalculateLux::writeRegister(int deviceAddress, int address, uint8_t val)
  {
      Wire.beginTransmission(deviceAddress);  // start transmission to device
      Wire.write(address);                    // send register address
@@ -62,8 +61,8 @@ void TSL2561_CalculateLux::writeRegister(int deviceAddress, int address, int val
     CH1_LOW=readRegister(TSL2561_Address,TSL2561_Channal1L);
     CH1_HIGH=readRegister(TSL2561_Address,TSL2561_Channal1H);
 
-    channel0=CH0_HIGH*256+CH0_LOW;
-    channel1=CH1_HIGH*256+CH1_LOW;
+    ch0 = (CH0_HIGH<<8) | CH0_LOW;
+    ch1 = (CH1_HIGH<<8) | CH1_LOW;
  }
  void TSL2561_CalculateLux::init()
  {
@@ -96,8 +95,8 @@ void TSL2561_CalculateLux::writeRegister(int deviceAddress, int address, int val
 }
 if (!iGain)  chScale = chScale << 4; // scale 1X to 16X
 // scale the channel values
-channel0 = (channel0 * chScale) >> CH_SCALE;
-channel1 = (channel1 * chScale) >> CH_SCALE;
+channel0 = (ch0 * chScale) >> CH_SCALE;
+channel1 = (ch1 * chScale) >> CH_SCALE;
 
   ratio1 = 0;
  if (channel0!= 0) ratio1 = (channel1 << (RATIO_SCALE+1))/channel0;
@@ -142,7 +141,7 @@ channel1 = (channel1 * chScale) >> CH_SCALE;
  }
   temp=((channel0*b)-(channel1*m));
   if(temp<0) temp=0;
-  temp+=(1<<LUX_SCALE-1);
+  temp+=(1<<(LUX_SCALE-1));
   // strip off fractional portion
   lux=temp>>LUX_SCALE;
   return (lux);
