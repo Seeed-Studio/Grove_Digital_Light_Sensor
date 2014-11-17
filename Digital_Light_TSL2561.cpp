@@ -46,15 +46,15 @@ uint8_t TSL2561_CalculateLux::readRegister(int deviceAddress, int address)
 }
 
 void TSL2561_CalculateLux::writeRegister(int deviceAddress, int address, uint8_t val)
- {
+{
      Wire.beginTransmission(deviceAddress);  // start transmission to device
      Wire.write(address);                    // send register address
      Wire.write(val);                        // send value to write
      Wire.endTransmission();                 // end transmission
      //delay(100);
- }
- void TSL2561_CalculateLux::getLux(void)
- {
+}
+void TSL2561_CalculateLux::getLux(void)
+{
     CH0_LOW=readRegister(TSL2561_Address,TSL2561_Channal0L);
     CH0_HIGH=readRegister(TSL2561_Address,TSL2561_Channal0H);
     //read two bytes from registers 0x0E and 0x0F
@@ -63,23 +63,28 @@ void TSL2561_CalculateLux::writeRegister(int deviceAddress, int address, uint8_t
 
     ch0 = (CH0_HIGH<<8) | CH0_LOW;
     ch1 = (CH1_HIGH<<8) | CH1_LOW;
- }
- void TSL2561_CalculateLux::init()
- {
+}
+void TSL2561_CalculateLux::init()
+{
    writeRegister(TSL2561_Address,TSL2561_Control,0x03);  // POWER UP
-   writeRegister(TSL2561_Address,TSL2561_Timing,0x11);  //High Gain (16x), integration time of 101ms
+   writeRegister(TSL2561_Address,TSL2561_Timing,0x00);  //No High Gain (1x), integration time of 13ms
    writeRegister(TSL2561_Address,TSL2561_Interrupt,0x00);
    writeRegister(TSL2561_Address,TSL2561_Control,0x00);  // POWER Down
- }
- unsigned long TSL2561_CalculateLux::readVisibleLux()
- {
+}
+signed long TSL2561_CalculateLux::readVisibleLux()
+{
    writeRegister(TSL2561_Address,TSL2561_Control,0x03);  // POWER UP
-   delay(102);
+   delay(14);
    getLux();
+
    writeRegister(TSL2561_Address,TSL2561_Control,0x00);  // POWER Down
-   return calculateLux(1, 1, 1);
- }
- unsigned long TSL2561_CalculateLux::calculateLux(unsigned int iGain, unsigned int tInt,int iType)
+   if(ch0/ch1 < 2 && ch0 > 4900)
+   {
+     return -1;  //ch0 out of range, but ch1 not. the lux is not valid in this situation.
+   }
+   return calculateLux(0, 0, 0);  //T package, no gain, 13ms
+}
+unsigned long TSL2561_CalculateLux::calculateLux(unsigned int iGain, unsigned int tInt,int iType)
 {
  switch (tInt)
  {
