@@ -78,6 +78,10 @@ signed long TSL2561_CalculateLux::readVisibleLux()
    getLux();
 
    writeRegister(TSL2561_Address,TSL2561_Control,0x00);  // POWER Down
+   if(ch1 == 0)
+   { 
+     return 0;
+   }
    if(ch0/ch1 < 2 && ch0 > 4900)
    {
      return -1;  //ch0 out of range, but ch1 not. the lux is not valid in this situation.
