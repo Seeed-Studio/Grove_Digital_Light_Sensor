@@ -65,6 +65,8 @@
 class DigitalLightISL29035
 {
 public:
+  DigitalLightISL29035();
+
   int init(void);
   /**
    * Set the full scale range for lux measurement.
@@ -92,11 +94,11 @@ public:
   void test();
   
 private:
-  uint8_t _full_scale_lux_range = DEFAULT_LUX_RANGE_INDEX;
-  uint8_t _integration_time = DEFAULT_INTEGRATION_TIME_INDEX;
-  uint32_t _adc_count_max[4] = {65536, 4096, 256, 16};
-  float   _intg_time[4] = {INTEGRATION_TIME0, INTEGRATION_TIME1, INTEGRATION_TIME2, INTEGRATION_TIME3};
-  uint32_t _ranges[4] = {FULL_SCALE_LUX_RANGE0, FULL_SCALE_LUX_RANGE1, FULL_SCALE_LUX_RANGE2, FULL_SCALE_LUX_RANGE3};
+  uint8_t _full_scale_lux_range;
+  uint8_t _integration_time;
+  uint32_t _adc_count_max[4];
+  float   _intg_time[4];
+  uint32_t _ranges[4];
 
   uint8_t readRegister(int deviceAddress, int address);
   void writeRegister(int deviceAddress, int address, uint8_t val);
