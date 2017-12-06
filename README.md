@@ -11,6 +11,8 @@ You can switch between three detection modes to take your readings. They are inf
 
 Version 2 (Fixme when we have a bazaar image)
 
+The version 2 hasn't been on the shelf now.
+
 [![Grove - Digital Light Sensor v2](https://raw.githubusercontent.com/SeeedDocument/Grove-Digital_Light_Sensor/master/img/Digital_Light_Sensor.jpg)](http://www.seeedstudio.com/depot/grove-digital-light-sensor-p-1281.html?cPath=25_27)
 
 # Usage:
