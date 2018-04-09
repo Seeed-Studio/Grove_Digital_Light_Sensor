@@ -3,7 +3,7 @@ Grove - Digital Light Sensor
 
 Version 1
 
-[![Grove - Digital Light Sensor](https://raw.githubusercontent.com/SeeedDocument/Grove-Digital_Light_Sensor/master/img/Digital_Light_Sensor.jpg)](http://www.seeedstudio.com/depot/grove-digital-light-sensor-p-1281.html?cPath=25_27)
+<img src=https://raw.githubusercontent.com/SeeedDocument/Grove-Digital_Light_Sensor/master/img/Digital_Light_Sensor.jpg width=400>
 
 This module is based on the I2C light-to-digital converter TSL2561 to transform light intensity to a digital signal. Different from traditional analog light sensor, as [Grove - Light Sensor](http://www.seeedstudio.com/depot/grove-light-sensorp-p-1253.html?cPath=144_148), this digital module features a selectable light spectrum range due to its dual light sensitive diodes: infrared and full spectrum. 
  
@@ -13,7 +13,7 @@ Version 2 (Fixme when we have a bazaar image)
 
 The version 2 hasn't been on the shelf now.
 
-[![Grove - Digital Light Sensor v2](https://raw.githubusercontent.com/SeeedDocument/Grove-Digital_Light_Sensor/master/img/Digital_Light_Sensor.jpg)](http://www.seeedstudio.com/depot/grove-digital-light-sensor-p-1281.html?cPath=25_27)
+<img src=https://raw.githubusercontent.com/SeeedDocument/Grove-Digital_Light_Sensor/master/img/Digital_Light_Sensor.jpg width=400>
 
 # Usage:
 
