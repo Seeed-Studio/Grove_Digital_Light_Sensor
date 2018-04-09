@@ -19,6 +19,14 @@ init	KEYWORD2
 readRegister	KEYWORD2
 writeRegister	KEYWORD2
 
+DigitalLightISL29035	KEYWORD2
+setFullScaleLuxRangeIndex	KEYWORD2
+setIntegrationTimeIndex	KEYWORD2
+readVisibleLux	KEYWORD2
+readIRLux	KEYWORD2
+readEV	KEYWORD2
+test	KEYWORD2
+
 
 #######################################
 # Constants (LITERAL1)
