@@ -1,0 +1,25 @@
+  
+#######################################
+# Syntax Coloring Map For 
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+readVisibleLux	KEYWORD2
+calculateLux	KEYWORD2
+getLux	KEYWORD2
+init	KEYWORD2
+readRegister	KEYWORD2
+writeRegister	KEYWORD2
+
+
+#######################################
+# Constants (LITERAL1)
+#######################################
