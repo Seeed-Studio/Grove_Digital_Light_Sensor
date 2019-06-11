@@ -71,6 +71,44 @@ void TSL2561_CalculateLux::init()
    writeRegister(TSL2561_Address,TSL2561_Interrupt,0x00);
    writeRegister(TSL2561_Address,TSL2561_Control,0x00);  // POWER Down
 }
+
+
+uint16_t TSL2561_CalculateLux::readIRLuminosity() // read Infrared channel value only, not convert to lux.
+{
+   writeRegister(TSL2561_Address,TSL2561_Control,0x03);  // POWER UP
+   delay(14);
+   getLux();
+
+   writeRegister(TSL2561_Address,TSL2561_Control,0x00);  // POWER Down
+   if(ch1 == 0)
+   { 
+     return 0;
+   }
+   if(ch0/ch1 < 2 && ch0 > 4900)
+   {
+     return -1;  //ch0 out of range, but ch1 not. the lux is not valid in this situation.
+   }
+   return ch1;
+}
+
+uint16_t TSL2561_CalculateLux::readFSpecLuminosity() //read Full Spectrum channel value only,  not convert to lux.
+{
+   writeRegister(TSL2561_Address,TSL2561_Control,0x03);  // POWER UP
+   delay(14);
+   getLux();
+
+   writeRegister(TSL2561_Address,TSL2561_Control,0x00);  // POWER Down
+   if(ch1 == 0)
+   { 
+     return 0;
+   }
+   if(ch0/ch1 < 2 && ch0 > 4900)
+   {
+     return -1;  //ch0 out of range, but ch1 not. the lux is not valid in this situation.
+   }
+   return ch0;
+}
+
 signed long TSL2561_CalculateLux::readVisibleLux()
 {
    writeRegister(TSL2561_Address,TSL2561_Control,0x03);  // POWER UP

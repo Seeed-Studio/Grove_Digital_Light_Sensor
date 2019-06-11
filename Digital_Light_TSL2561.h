@@ -104,6 +104,8 @@ class TSL2561_CalculateLux
 {
  public:
   signed long readVisibleLux();
+  uint16_t readIRLuminosity();
+  uint16_t readFSpecLuminosity();
   unsigned long calculateLux(unsigned int iGain, unsigned int tInt,int iType);
   void getLux(void);
   void init(void);
