@@ -1,33 +1,33 @@
 /*
- * Digital_Light_ISL29035.h
- * A library for ISL29035
- *
- * Copyright (c) 2017 seeed technology inc.
- * Website    : www.seeed.cc
- * Author     : Jack
- * Create Time:
- * Change Log :
- *
- * The MIT License (MIT)
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
+    Digital_Light_ISL29035.h
+    A library for ISL29035
+
+    Copyright (c) 2017 seeed technology inc.
+    Website    : www.seeed.cc
+    Author     : Jack
+    Create Time:
+    Change Log :
+
+    The MIT License (MIT)
+
+    Permission is hereby granted, free of charge, to any person obtaining a copy
+    of this software and associated documentation files (the "Software"), to deal
+    in the Software without restriction, including without limitation the rights
+    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+    copies of the Software, and to permit persons to whom the Software is
+    furnished to do so, subject to the following conditions:
+
+    The above copyright notice and this permission notice shall be included in
+    all copies or substantial portions of the Software.
+
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+    THE SOFTWARE.
+*/
 #ifndef Digital_Light_ISL29035_H
 #define Digital_Light_ISL29035_H
 
@@ -62,50 +62,49 @@
 #define INTEGRATION_TIME0       105  //ms, this also configure the ADC to 16bits
 #define DEFAULT_INTEGRATION_TIME_INDEX 1  //should be [0,3]
 
-class DigitalLightISL29035
-{
-public:
-  DigitalLightISL29035();
+class DigitalLightISL29035 {
+  public:
+    DigitalLightISL29035();
 
-  int init(void);
-  /**
-   * Set the full scale range for lux measurement.
-   * A lower range offers better resolution, it's suitable in a dim env,
-   * while in light env, a higher range should be selected.
-   * 0: 1000 lux, 1: 4000 lux, 2: 16000 lux, 3: 64000 lux
-   * default index is 0.
-   */
-  int setFullScaleLuxRangeIndex(int range_index);
+    int init(void);
+    /**
+        Set the full scale range for lux measurement.
+        A lower range offers better resolution, it's suitable in a dim env,
+        while in light env, a higher range should be selected.
+        0: 1000 lux, 1: 4000 lux, 2: 16000 lux, 3: 64000 lux
+        default index is 0.
+    */
+    int setFullScaleLuxRangeIndex(int range_index);
 
-  /**
-   * Set the integration time.
-   * 0: 105ms, 1: 6.5ms, 2: 0.41ms, 3: 0.0256
-   * default index is 0.
-   */
-  int setIntegrationTimeIndex(int intg_time_index);
+    /**
+        Set the integration time.
+        0: 105ms, 1: 6.5ms, 2: 0.41ms, 3: 0.0256
+        default index is 0.
+    */
+    int setIntegrationTimeIndex(int intg_time_index);
 
-  /**
-   * This sensor has builtin IR rejection when measuring ambient light.
-   */
-  uint32_t readVisibleLux();
-  uint32_t readIRLux();
-  int32_t readEV();
+    /**
+        This sensor has builtin IR rejection when measuring ambient light.
+    */
+    uint32_t readVisibleLux();
+    uint32_t readIRLux();
+    int32_t readEV();
 
-  void test();
-  
-private:
-  uint8_t _full_scale_lux_range;
-  uint8_t _integration_time;
-  uint32_t _adc_count_max[4];
-  float   _intg_time[4];
-  uint32_t _ranges[4];
+    void test();
 
-  uint8_t readRegister(int deviceAddress, int address);
-  void writeRegister(int deviceAddress, int address, uint8_t val);
-  uint16_t readData();
-  uint16_t measure(uint8_t what);
+  private:
+    uint8_t _full_scale_lux_range;
+    uint8_t _integration_time;
+    uint32_t _adc_count_max[4];
+    float   _intg_time[4];
+    uint32_t _ranges[4];
 
- };
+    uint8_t readRegister(int deviceAddress, int address);
+    void writeRegister(int deviceAddress, int address, uint8_t val);
+    uint16_t readData();
+    uint16_t measure(uint8_t what);
+
+};
 extern DigitalLightISL29035  ISL29035;
 #endif
 

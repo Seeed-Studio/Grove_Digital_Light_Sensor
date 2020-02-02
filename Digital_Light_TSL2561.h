@@ -1,33 +1,33 @@
 /*
- * Digital_Light_TSL2561.h
- * A library for TSL2561
- *
- * Copyright (c) 2012 seeed technology inc.
- * Website    : www.seeed.cc
- * Author     : zhangkun
- * Create Time:
- * Change Log :
- *
- * The MIT License (MIT)
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
+    Digital_Light_TSL2561.h
+    A library for TSL2561
+
+    Copyright (c) 2012 seeed technology inc.
+    Website    : www.seeed.cc
+    Author     : zhangkun
+    Create Time:
+    Change Log :
+
+    The MIT License (MIT)
+
+    Permission is hereby granted, free of charge, to any person obtaining a copy
+    of this software and associated documentation files (the "Software"), to deal
+    in the Software without restriction, including without limitation the rights
+    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+    copies of the Software, and to permit persons to whom the Software is
+    furnished to do so, subject to the following conditions:
+
+    The above copyright notice and this permission notice shall be included in
+    all copies or substantial portions of the Software.
+
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+    THE SOFTWARE.
+*/
 #ifndef Digital_Light_TSL2561_H
 #define Digital_Light_TSL2561_H
 
@@ -100,30 +100,29 @@
 #define K8C 0x029a   // 1.3 * 2^RATIO_SCALE
 #define B8C 0x0000   // 0.000 * 2^LUX_SCALE
 #define M8C 0x0000   // 0.000 * 2^LUX_SCALE
-class TSL2561_CalculateLux
-{
- public:
-  signed long readVisibleLux();
-  uint16_t readIRLuminosity();
-  uint16_t readFSpecLuminosity();
-  unsigned long calculateLux(unsigned int iGain, unsigned int tInt,int iType);
-  void getLux(void);
-  void init(void);
-  uint8_t readRegister(int deviceAddress, int address);
-  void writeRegister(int deviceAddress, int address, uint8_t val);
- private:
-  uint8_t CH0_LOW,CH0_HIGH,CH1_LOW,CH1_HIGH;
-  uint16_t ch0,ch1;
-  unsigned long chScale;
-  unsigned long channel1;
-  unsigned long channel0;
-  unsigned long  ratio1;
-  unsigned int b;
-  unsigned int m;
-  unsigned long temp;
-  unsigned long lux;
+class TSL2561_CalculateLux {
+  public:
+    signed long readVisibleLux();
+    uint16_t readIRLuminosity();
+    uint16_t readFSpecLuminosity();
+    unsigned long calculateLux(unsigned int iGain, unsigned int tInt, int iType);
+    void getLux(void);
+    void init(void);
+    uint8_t readRegister(int deviceAddress, int address);
+    void writeRegister(int deviceAddress, int address, uint8_t val);
+  private:
+    uint8_t CH0_LOW, CH0_HIGH, CH1_LOW, CH1_HIGH;
+    uint16_t ch0, ch1;
+    unsigned long chScale;
+    unsigned long channel1;
+    unsigned long channel0;
+    unsigned long  ratio1;
+    unsigned int b;
+    unsigned int m;
+    unsigned long temp;
+    unsigned long lux;
 
- };
+};
 extern TSL2561_CalculateLux  TSL2561;
 #endif
 
