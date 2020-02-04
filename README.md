@@ -1,4 +1,4 @@
-Grove - Digital Light Sensor
+Grove - Digital Light Sensor  [![Build Status](https://travis-ci.com/Seeed-Studio/Grove_Digital_Light_Sensor.svg?branch=master)](https://travis-ci.com/Seeed-Studio/Grove_Digital_Light_Sensor)
 ---------------------------------------------------------
 
 Version 1
