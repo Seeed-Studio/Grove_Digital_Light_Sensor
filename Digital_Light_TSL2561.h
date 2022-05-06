@@ -31,6 +31,7 @@
 #ifndef Digital_Light_TSL2561_H
 #define Digital_Light_TSL2561_H
 
+#include <limits>
 #include <Arduino.h>
 
 #define  TSL2561_Control  0x80
@@ -100,8 +101,24 @@
 #define K8C 0x029a   // 1.3 * 2^RATIO_SCALE
 #define B8C 0x0000   // 0.000 * 2^LUX_SCALE
 #define M8C 0x0000   // 0.000 * 2^LUX_SCALE
+
+#ifdef max  // Unfortunately, Arduino.h defines max, which conflicts with the method name.
+#  undef max
+#endif /* max */
+
+/** No timeout while waiting for a read response from the digital light sensor. */
+#define TSL2561_NO_READ_TIMEOUT std::numeric_limits<uint32_t>::max()
+
 class TSL2561_CalculateLux {
   public:
+
+    /**
+     * Create a new interface to a TSL2561 light sensor.
+     *
+     * @param read_timeout The timeout to wait for read responses in microseconds.
+     */
+    explicit TSL2561_CalculateLux(uint32_t read_timeout = TSL2561_NO_READ_TIMEOUT);
+
     signed long readVisibleLux();
     uint16_t readIRLuminosity();
     uint16_t readFSpecLuminosity();
@@ -110,6 +127,14 @@ class TSL2561_CalculateLux {
     void init(void);
     uint8_t readRegister(int deviceAddress, int address);
     void writeRegister(int deviceAddress, int address, uint8_t val);
+
+    /**
+     * Check whether there was a read timeout since the last call to this function
+     * and clear the flag.
+     *
+     * @return whether there was a read timeout since the last check.
+     */
+    bool checkHadTimeout();
   private:
     uint8_t CH0_LOW, CH0_HIGH, CH1_LOW, CH1_HIGH;
     uint16_t ch0, ch1;
@@ -122,6 +147,15 @@ class TSL2561_CalculateLux {
     unsigned long temp;
     unsigned long lux;
 
+    /**
+     * The configured read timeout in microseconds.
+     */
+    uint32_t read_timeout;
+
+    /**
+     * Whether a read timeout occurred since the last time checkHadTimeout was called.
+     */
+    bool hadTimeout = false;
 };
 extern TSL2561_CalculateLux  TSL2561;
 #endif
