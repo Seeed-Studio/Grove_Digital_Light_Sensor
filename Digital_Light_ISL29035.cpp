@@ -42,7 +42,7 @@ DigitalLightISL29035::DigitalLightISL29035():
     _intg_time[0] = INTEGRATION_TIME0;
     _intg_time[1] = INTEGRATION_TIME1;
     _intg_time[2] = INTEGRATION_TIME2;
-    _intg_time[4] = INTEGRATION_TIME3;
+    _intg_time[3] = INTEGRATION_TIME3;
 
     _ranges[0] = FULL_SCALE_LUX_RANGE0;
     _ranges[1] = FULL_SCALE_LUX_RANGE1;
