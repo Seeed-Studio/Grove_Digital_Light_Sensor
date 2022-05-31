@@ -31,7 +31,6 @@
 #ifndef Digital_Light_TSL2561_H
 #define Digital_Light_TSL2561_H
 
-#include <limits>
 #include <Arduino.h>
 
 #define  TSL2561_Control  0x80
@@ -102,12 +101,8 @@
 #define B8C 0x0000   // 0.000 * 2^LUX_SCALE
 #define M8C 0x0000   // 0.000 * 2^LUX_SCALE
 
-#ifdef max  // Unfortunately, Arduino.h defines max, which conflicts with the method name.
-#  undef max
-#endif /* max */
-
 /** No timeout while waiting for a read response from the digital light sensor. */
-#define TSL2561_NO_READ_TIMEOUT std::numeric_limits<uint32_t>::max()
+#define TSL2561_NO_READ_TIMEOUT 0
 
 class TSL2561_CalculateLux {
   public:
