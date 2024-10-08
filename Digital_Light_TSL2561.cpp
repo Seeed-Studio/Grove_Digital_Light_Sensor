@@ -31,6 +31,11 @@
 #include <Digital_Light_TSL2561.h>
 #include <Arduino.h>
 #include <Wire.h>
+
+
+TSL2561_CalculateLux::TSL2561_CalculateLux(uint32_t read_timeout) : read_timeout(read_timeout) {
+}
+
 uint8_t TSL2561_CalculateLux::readRegister(int deviceAddress, int address) {
 
     uint8_t value;
@@ -38,7 +43,13 @@ uint8_t TSL2561_CalculateLux::readRegister(int deviceAddress, int address) {
     Wire.write(address);                // register to read
     Wire.endTransmission();
     Wire.requestFrom(deviceAddress, 1); // read a byte
-    while (!Wire.available());
+    uint32_t readStart = micros();
+    while (!Wire.available()) {
+        if (read_timeout != TSL2561_NO_READ_TIMEOUT && micros() - readStart >= read_timeout) {
+            hadTimeout = true;
+            break;
+        }
+    }
     value = Wire.read();
     //delay(100);
     return value;
@@ -200,6 +211,13 @@ unsigned long TSL2561_CalculateLux::calculateLux(unsigned int iGain, unsigned in
     lux = temp >> LUX_SCALE;
     return (lux);
 }
+
+bool TSL2561_CalculateLux::checkHadTimeout(){
+    bool timeout = hadTimeout;
+    hadTimeout = false;
+    return timeout;
+}
+
 TSL2561_CalculateLux TSL2561;
 
 
